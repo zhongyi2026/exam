@@ -1,0 +1,479 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>经络腧穴自测卷·20题版</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: #f0f5f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .exam-container {
+            max-width: 950px;
+            width: 100%;
+            background: white;
+            border-radius: 28px;
+            box-shadow: 0 20px 40px rgba(0,20,30,0.15);
+            padding: 30px 35px;
+            border: 1px solid #cfdee9;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #0b3b4b;
+            margin: 0 0 15px 0;
+            font-weight: 500;
+            border-left: 8px solid #3498ad;
+            padding-left: 20px;
+        }
+        .subhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 5px 0 20px 0;
+            color: #2c5f73;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .score-indicator {
+            background: #d9eaf0;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 1rem;
+            color: #0a4455;
+        }
+        .student-row {
+            background: #fafdff;
+            border: 1px solid #bdd7e2;
+            border-radius: 60px;
+            padding: 12px 25px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .student-row label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #135e73;
+        }
+        .student-row input {
+            border: none;
+            background: #ffffff;
+            border: 2px solid #b0cfdd;
+            border-radius: 40px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            width: 180px;
+            outline: none;
+            transition: 0.2s;
+        }
+        .student-row input:focus {
+            border-color: #1d7e9c;
+            box-shadow: 0 0 0 3px rgba(28,126,156,0.2);
+        }
+        .quiz-form {
+            margin: 20px 0 15px;
+        }
+        .question-card {
+            background: #ffffff;
+            border: 1px solid #cde3ec;
+            border-radius: 24px;
+            padding: 16px 22px;
+            margin-bottom: 12px;
+            transition: 0.1s;
+            box-shadow: 0 2px 6px rgba(0,30,40,0.03);
+        }
+        .question-card.correct-highlight {
+            border-left: 10px solid #2a9d8f;
+            background: #f5fdfb;
+        }
+        .question-card.wrong-highlight {
+            border-left: 10px solid #e76f51;
+            background: #fff8f5;
+        }
+        .q-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1c5e73;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .q-num {
+            background: #2d7e96;
+            color: white;
+            border-radius: 50px;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px 30px;
+            margin-left: 10px;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+        .option-item input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2f8eaa;
+            cursor: pointer;
+        }
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 35px 0 20px;
+        }
+        .btn {
+            border: none;
+            background: #c4dde8;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #0d3949;
+            cursor: pointer;
+            transition: 0.15s;
+            border: 1px solid transparent;
+        }
+        .btn-primary {
+            background: #217a94;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,90,120,0.2);
+        }
+        .btn-primary:hover {
+            background: #1b657c;
+            transform: scale(1.01);
+        }
+        .btn-secondary:hover {
+            background: #b1cfdd;
+            border-color: #5d99b0;
+        }
+        .result-panel {
+            background: #ddeef6;
+            border-radius: 28px;
+            padding: 20px 25px;
+            margin: 25px 0 20px;
+            border: 1px solid #aac7d8;
+        }
+        .score-big {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #115e7a;
+            line-height: 1.2;
+        }
+        .remark {
+            font-size: 1.3rem;
+            margin-left: 12px;
+            color: #1f5063;
+        }
+        .mistake-list {
+            margin-top: 18px;
+            background: #fcf2eb;
+            border-radius: 24px;
+            padding: 16px 20px;
+            border-left: 6px solid #e76f51;
+        }
+        .mistake-title {
+            font-weight: 600;
+            color: #a23b1f;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .mistake-item {
+            padding: 4px 0;
+            border-bottom: 1px dashed #e7b59e;
+            font-size: 0.95rem;
+        }
+        .answer-list {
+            margin-top: 20px;
+            background: #e9f0f3;
+            border-radius: 24px;
+            padding: 16px 20px;
+            border-left: 6px solid #2d7e96;
+            font-size: 0.9rem;
+        }
+        .answer-title {
+            font-weight: 600;
+            color: #135e73;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .answer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 20px;
+        }
+        .footer {
+            text-align: right;
+            color: #6d96a8;
+            margin-top: 12px;
+            font-size: 0.85rem;
+        }
+        @media (max-width: 650px) {
+            .exam-container {
+                padding: 18px;
+            }
+            .options {
+                gap: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="exam-container">
+    <h1>📝 经络腧穴·自测卷（20题）</h1>
+    <div class="subhead">
+        <span class="score-indicator">💯 每题5分 · 满分100分</span>
+    </div>
+
+    <!-- 学号输入：空白 -->
+    <div class="student-row">
+        <label for="studentId">🔢 学号 (1~50):</label>
+        <input type="number" id="studentId" min="1" max="50" placeholder="请输入学号" value="">
+    </div>
+
+    <div class="quiz-form" id="quizForm"></div>
+
+    <div class="action-buttons">
+        <button class="btn btn-primary" id="submitBtn">📥 提交试卷 · 查看成绩</button>
+        <button class="btn btn-secondary" id="resetBtn">🔄 重新答题</button>
+    </div>
+
+    <!-- 结果显示区域 -->
+    <div class="result-panel" id="resultPanel" style="display: none;">
+        <div style="display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px;">
+            <span class="score-big" id="scoreValue">0</span><span style="font-size:1.5rem;">分</span>
+            <span class="remark" id="remarkText"></span>
+        </div>
+        <div id="mistakeContainer" class="mistake-list" style="display: none;">
+            <div class="mistake-title">📌 错题回顾</div>
+            <div id="mistakeDetails"></div>
+        </div>
+        <div style="margin-top: 12px; color: #2d677d;" id="scoreMessage"></div>
+    </div>
+
+    <!-- 参考答案区（卷尾） -->
+    <div class="answer-list" id="answerList">
+        <div class="answer-title">✅ 标准答案（20题）</div>
+        <div class="answer-grid" id="answerGrid"></div>
+    </div>
+
+    <div class="footer">
+        依据：《经络腧穴概述自测卷1》+ 补充题 | 自测练习
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ---------- 题库：17题来自PDF + 3题来自原exam001（不重复）----------
+        // 确保与PDF内容一致，并补充3道未出现的考点
+        const questions = [
+            // 第1-17题 基于自测卷1.pdf 顺序与内容完全一致
+            { text: "经络的核心作用是？", options: ["A. 储存气血", "B. 运行气血", "C. 生成气血", "D. 分解气血"], correct: "B" },
+            { text: "十二经脉命名不结合哪个方面？", options: ["A. 脏腑系统", "B. 阴阳属性", "C. 手足部位", "D. 身高体型"], correct: "D" },
+            { text: "手之三阴经的循行规律是？", options: ["A. 从手到胸", "B. 从胸到手", "C. 从头到手", "D. 从足到胸"], correct: "B" },
+            { text: "足之三阳经的循行规律是？", options: ["A. 从头走足", "B. 从足走头", "C. 从胸走足", "D. 从手走足"], correct: "A" },
+            { text: "十二经脉循行特点是？", options: ["A. 单向循行", "B. 首尾相贯如环无端", "C. 仅体表循行", "D. 仅脏腑内循行"], correct: "B" },
+            { text: "以下哪项不属于取穴基本方法？", options: ["A. 骨度分寸法", "B. 特定标志法", "C. 体重比例法", "D. 手指同身寸"], correct: "C" },
+            { text: "骨度分寸法适用范围是？", options: ["A. 仅成年人", "B. 仅儿童", "C. 任何年龄体型", "D. 仅标准体型"], correct: "C" },
+            { text: "两乳头之间横量骨度分寸是？", options: ["A.5寸", "B.8寸", "C.12寸", "D.9寸"], correct: "B" },
+            { text: "胸剑联合至脐中直量是？", options: ["A.5寸", "B.8寸", "C.13寸", "D.18寸"], correct: "B" },
+            { text: "腋前纹头至肘横纹骨度分寸是？", options: ["A.9寸", "B.12寸", "C.18寸", "D.16寸"], correct: "A" },
+            { text: "胫骨内侧髁下缘至内踝尖长度是？", options: ["A.13寸", "B.16寸", "C.19寸", "D.8寸"], correct: "A" },
+            { text: "背部横寸骨度标准是？", options: ["A. 两肩胛内缘 6 寸", "B. 两乳头 8 寸", "C. 肘至腕 12 寸", "D. 脐至耻骨 5 寸"], correct: "A" },
+            { text: "属于固定标志法取穴的是？", options: ["A. 屈肘取曲池", "B. 张口取听宫", "C. 两乳之间取膻中", "D. 抬手取肩井"], correct: "C" },
+            { text: "属于活动姿势标志法的是？", options: ["A. 肚脐取神阙", "B. 第 7 颈椎取大椎", "C. 屈肘横纹取曲池", "D. 乳头取乳根"], correct: "C" },
+            { text: "拇指同身寸 1 寸适用于？", options: ["A. 背部横量", "B. 四肢直寸取穴", "C. 胸部横量", "D. 头部直量"], correct: "B" },
+            { text: "“一夫法”指的是？", options: ["A. 中指同身寸", "B. 拇指同身寸", "C. 横指同身寸", "D. 骨度分寸"], correct: "C" },
+            { text: "股骨大转子至膝中适用于？", options: ["A. 手三阴", "B. 足三阳", "C. 手三阳", "D. 足三阴"], correct: "B" },
+            // 补充3题（源自原exam001但避免与上述重复，且考点不同）
+            { text: "腧穴不具备以下哪种功用？", options: ["A. 诊断疾病", "B. 治疗疾病", "C. 气血输注点", "D. 生成脏腑之气"], correct: "D" },
+            { text: "前发际至后发际骨度分寸是？", options: ["A.8寸", "B.12寸", "C.18寸", "D.9寸"], correct: "B" },
+            { text: "中指同身寸 1 寸是指？", options: ["A. 中指中节屈曲内侧纹头间距", "B. 拇指关节横度", "C. 四指并拢", "D. 食指中节长度"], correct: "A" }
+        ];
+
+        const correctAnswers = questions.map(q => q.correct);
+        let userSelections = new Array(questions.length).fill(null);
+        let submitted = false;
+
+        // DOM 元素
+        const quizForm = document.getElementById('quizForm');
+        const resultPanel = document.getElementById('resultPanel');
+        const scoreValue = document.getElementById('scoreValue');
+        const remarkText = document.getElementById('remarkText');
+        const mistakeContainer = document.getElementById('mistakeContainer');
+        const mistakeDetails = document.getElementById('mistakeDetails');
+        const scoreMessage = document.getElementById('scoreMessage');
+        const studentIdInput = document.getElementById('studentId');
+        const answerGrid = document.getElementById('answerGrid');
+
+        // 渲染参考答案列表（20题标准答案）
+        function renderAnswerKey() {
+            let ansHtml = '';
+            correctAnswers.forEach((ans, idx) => {
+                ansHtml += `<span style="background:#fff; padding:2px 10px; border-radius:20px; border:1px solid #bdd7e2;">${idx+1}. ${ans}</span>`;
+            });
+            answerGrid.innerHTML = ansHtml;
+        }
+
+        // 渲染题目
+        function renderQuestions() {
+            let htmlStr = '';
+            for (let i = 0; i < questions.length; i++) {
+                const q = questions[i];
+                const qIndex = i + 1;
+                const nameAttr = `q${i}`;
+                const savedChoice = userSelections[i];
+                htmlStr += `<div class="question-card" id="qCard${i}" data-index="${i}">`;
+                htmlStr += `<div class="q-title"><span class="q-num">${qIndex}</span> ${q.text}</div>`;
+                htmlStr += `<div class="options">`;
+                q.options.forEach(opt => {
+                    const optLetter = opt.charAt(0);
+                    const checked = (savedChoice === optLetter) ? 'checked' : '';
+                    htmlStr += `<label class="option-item"><input type="radio" name="${nameAttr}" value="${optLetter}" ${checked}> ${opt}</label>`;
+                });
+                htmlStr += `</div></div>`;
+            }
+            quizForm.innerHTML = htmlStr;
+
+            // 绑定change事件
+            for (let i = 0; i < questions.length; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(radio => {
+                    radio.addEventListener('change', function(e) {
+                        userSelections[i] = e.target.value;
+                        if (submitted) {
+                            submitted = false;
+                            resultPanel.style.display = 'none';
+                            removeHighlightClasses();
+                        }
+                    });
+                });
+            }
+        }
+
+        function removeHighlightClasses() {
+            for (let i = 0; i < questions.length; i++) {
+                const card = document.getElementById(`qCard${i}`);
+                if (card) card.classList.remove('correct-highlight', 'wrong-highlight');
+            }
+        }
+
+        function applyHighlightClasses() {
+            for (let i = 0; i < questions.length; i++) {
+                const card = document.getElementById(`qCard${i}`);
+                if (!card) continue;
+                const selected = userSelections[i];
+                const correct = correctAnswers[i];
+                card.classList.remove('correct-highlight', 'wrong-highlight');
+                if (selected) {
+                    if (selected === correct) card.classList.add('correct-highlight');
+                    else card.classList.add('wrong-highlight');
+                }
+            }
+        }
+
+        function computeScore() {
+            let correctCount = 0;
+            const mistakes = [];
+            for (let i = 0; i < questions.length; i++) {
+                const selected = userSelections[i];
+                const correct = correctAnswers[i];
+                if (selected && selected === correct) correctCount++;
+                else mistakes.push(i + 1);
+            }
+            return { correctCount, mistakes };
+        }
+
+        function showResult() {
+            const { correctCount, mistakes } = computeScore();
+            const totalScore = correctCount * 5;
+            let studentId = studentIdInput.value.trim();
+            if (studentId === '' || parseInt(studentId) < 1 || parseInt(studentId) > 50) studentId = '未填/无效';
+
+            scoreValue.innerText = totalScore;
+            let remark = '';
+            if (totalScore >= 90) remark = '优秀 🌟';
+            else if (totalScore >= 80) remark = '良好 👍';
+            else if (totalScore >= 60) remark = '及格 📚';
+            else remark = '需复习 🕒';
+            remarkText.innerText = remark;
+
+            if (mistakes.length > 0) {
+                mistakeContainer.style.display = 'block';
+                let mistakeHtml = '';
+                mistakes.forEach(qNo => { mistakeHtml += `<div class="mistake-item">❌ 第 ${qNo} 题</div>`; });
+                mistakeDetails.innerHTML = mistakeHtml;
+            } else {
+                mistakeContainer.style.display = 'none';
+            }
+
+            scoreMessage.innerText = `学号 ${studentId}  答对 ${correctCount} 题，总分 ${totalScore} 分。${mistakes.length ? '错题已用橙色高亮' : '太棒了，全对！'}`;
+            applyHighlightClasses();
+            resultPanel.style.display = 'block';
+            submitted = true;
+        }
+
+        function resetExam() {
+            userSelections = new Array(questions.length).fill(null);
+            for (let i = 0; i < questions.length; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                if (radios) radios.forEach(r => r.checked = false);
+            }
+            resultPanel.style.display = 'none';
+            submitted = false;
+            removeHighlightClasses();
+            // 不清空学号但保留空白输入框，不预设数字（已设置为空）
+            if (studentIdInput) studentIdInput.value = '';
+        }
+
+        // 初始化
+        renderAnswerKey();
+        renderQuestions();
+
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            let sid = studentIdInput.value;
+            if (!sid || parseInt(sid) < 1 || parseInt(sid) > 50) {
+                alert('请填写正确的学号 (1-50) 以便登记成绩。');
+            }
+            const missing = [];
+            for (let i = 0; i < questions.length; i++) {
+                if (!userSelections[i]) missing.push(i+1);
+            }
+            if (missing.length > 0) {
+                if (!confirm(`第 ${missing.join(', ')} 题未选，未选视为错误。确定提交吗？`)) return;
+            }
+            showResult();
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', resetExam);
+        resultPanel.style.display = 'none';
+    })();
+</script>
+</body>
+</html>
