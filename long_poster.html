@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>中医小贴士：肺为相傅之官</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #e9f0e6;
+            font-family: 'Segoe UI', '微软雅黑', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        /* 海报卡片 */
+        .poster {
+            max-width: 800px;
+            width: 100%;
+            background: #fffef7;
+            background-image: radial-gradient(#f0ead0 1px, transparent 1px);
+            background-size: 24px 24px;
+            border-radius: 48px 32px 48px 32px;
+            box-shadow: 0 25px 45px rgba(60, 45, 20, 0.15);
+            overflow: hidden;
+            border: 1px solid #dacaa0;
+        }
+        /* 装饰头 */
+        .header-deco {
+            background: linear-gradient(135deg, #2f5d3a 0%, #5f8b5c 100%);
+            padding: 20px 28px 12px 28px;
+            text-align: center;
+            color: #fef3d6;
+        }
+        .header-deco h1 {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            text-shadow: 2px 2px 0 #1f3d2a;
+        }
+        .header-deco .sub {
+            font-size: 1.05rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        /* 内经引文区域 */
+        .classic-quote {
+            background: #fbf5e3;
+            margin: 24px 28px 0 28px;
+            padding: 18px 20px;
+            border-radius: 60px;
+            text-align: center;
+            border-left: 8px solid #7faa5d;
+            border-right: 8px solid #7faa5d;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
+        }
+        .quote-text {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: #2b4d2e;
+            font-family: '楷体', '华文楷书', 'Georgia', serif;
+            line-height: 1.3;
+        }
+        .quote-source {
+            margin-top: 10px;
+            font-size: 1rem;
+            color: #8f7a4a;
+            letter-spacing: 1px;
+        }
+        /* 主要内容区 */
+        .content {
+            padding: 20px 28px 30px 28px;
+        }
+        .section {
+            margin-bottom: 24px;
+            background: #fefaf0;
+            border-radius: 32px;
+            padding: 16px 22px;
+            transition: 0.1s;
+            border: 1px solid #e6dbbc;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #3a6741;
+            border-left: 6px solid #b88746;
+            padding-left: 16px;
+            margin-bottom: 16px;
+            letter-spacing: -0.2px;
+        }
+        .section-sub {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #8b6b3c;
+            margin: 12px 0 8px 0;
+            padding-left: 10px;
+        }
+        .explain-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .explain-list li {
+            margin-bottom: 14px;
+            font-size: 1rem;
+            line-height: 1.45;
+            color: #2f3e2c;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        .list-icon {
+            font-size: 1.3rem;
+            min-width: 32px;
+            text-align: center;
+        }
+        .bold-word {
+            font-weight: 700;
+            color: #b45f2b;
+        }
+        .insight-text {
+            background: #eef3e6;
+            padding: 16px 20px;
+            border-radius: 28px;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #2c482a;
+            margin-top: 10px;
+            border-left: 4px solid #8fb56e;
+        }
+        .footer-note {
+            margin-top: 20px;
+            text-align: center;
+            border-top: 2px dotted #dbcfa8;
+            padding-top: 20px;
+            font-size: 0.85rem;
+            color: #9a8c62;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .qrcode-tip {
+            background: #f2eedf;
+            padding: 6px 14px;
+            border-radius: 80px;
+            font-size: 0.75rem;
+            color: #6c5e3f;
+        }
+        @media (max-width: 600px) {
+            .poster {
+                border-radius: 32px;
+            }
+            .content {
+                padding: 12px 18px 24px;
+            }
+            .section {
+                padding: 12px 16px;
+            }
+            .quote-text {
+                font-size: 1.25rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="poster">
+    <div class="header-deco">
+        <h1>🫁 肺者 · 相傅之官</h1>
+        <div class="sub">治节出焉 · 辅心行令</div>
+    </div>
+
+    <!-- 内经原文 -->
+    <div class="classic-quote">
+        <div class="quote-text">“肺者，相傅之官，治节出焉。”</div>
+        <div class="quote-source">——《素问·灵兰秘典论》</div>
+    </div>
+
+    <div class="content">
+        <!-- 一、字面释义 -->
+        <div class="section">
+            <div class="section-title">📖 一、字面释义</div>
+            <div class="explain-list">
+                <li><span class="list-icon">🏮</span><span><span class="bold-word">相傅之官</span>：“相”指宰相，“傅”指太傅。是地位仅次于君主（心）的最高辅佐官员 → 肺辅佐心脏，代君行令。</span></li>
+                <li><span class="list-icon">⚙️</span><span><span class="bold-word">治节出焉</span>：“治节”即治理与调节；“出焉”指从这里发出。全身气血运行、生理秩序的调节，都源于肺的功能。</span></li>
+            </div>
+        </div>
+
+        <!-- 二、深层医理含义 -->
+        <div class="section">
+            <div class="section-title">🌿 二、为何肺能“治节”？</div>
+            <div class="section-sub">🔹 主气，司呼吸</div>
+            <div class="insight-text">肺主一身之气，将吸入“清气”与脾胃“水谷精气”结合成宗气。宗气贯心脉行气血，调节全身气机升降出入。</div>
+            
+            <div class="section-sub">❤️ 朝百脉，助心行血</div>
+            <div class="insight-text">全身血液都要流经肺脉（肺朝百脉）。肺通过宣发肃降，辅助心脏推动血液按节律运行——这是“治节”在血液循环上的体现。</div>
+            
+            <div class="section-sub">💧 调节气机与水道</div>
+            <div class="insight-text">肺为“水之上源”，通调水道。宣发布散津液到体表，肃降将水液下输膀胱。对水液代谢的精细调节，也属于“治节”的重要部分。</div>
+            
+            <div class="section-sub">🍂 与时令相应</div>
+            <div class="insight-text">肺对应秋季，主收敛。这种收敛特性，帮助人体阳气收藏、气血内守，防止过度消耗，维持生命节律。</div>
+        </div>
+
+        <!-- 总结 -->
+        <div class="section">
+            <div class="section-title">✨ 总结 · 养生启示</div>
+            <div class="insight-text" style="background:#f7efdd;">
+                “相傅之官，治节出焉”形象概括了肺的生理特性：<strong>肺在心的主导下，对全身气、血、津液及脏腑功能进行精细调节与制约，维持生命活动的规律与节律。</strong><br><br>
+                🍃 日常护肺小提醒：常笑宣肺，晨起深呼吸，按揉太渊穴，秋燥时节多食百合、梨水。
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <span>📘 中医经典养生 · 老年班共学</span>
+            <span class="qrcode-tip">🔖 扫码收藏 · 随时温习</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
