@@ -1,0 +1,405 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>手太阴肺经小测·20题</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', '微软雅黑', Roboto, sans-serif;
+        }
+        body {
+            background: #eef4f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .exam-container {
+            max-width: 900px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px rgba(0,20,0,0.1);
+            padding: 28px 32px;
+            border: 1px solid #cbdcd0;
+        }
+        h1 {
+            font-size: 1.9rem;
+            color: #1c5a3a;
+            margin: 0 0 8px 0;
+            border-left: 8px solid #3e8e6b;
+            padding-left: 20px;
+        }
+        .subhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0 20px 0;
+            color: #2d6a4f;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .score-indicator {
+            background: #d8f0e6;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .student-row {
+            background: #f8fefb;
+            border: 1px solid #c0dfcf;
+            border-radius: 50px;
+            padding: 10px 25px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .student-row label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1c6e4a;
+        }
+        .student-row input {
+            border: 2px solid #c0dfcf;
+            border-radius: 40px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            width: 170px;
+            outline: none;
+        }
+        .student-row input:focus {
+            border-color: #3e8e6b;
+        }
+        .question-card {
+            background: #ffffff;
+            border: 1px solid #d4e6dc;
+            border-radius: 24px;
+            padding: 16px 22px;
+            margin-bottom: 12px;
+            transition: 0.1s;
+        }
+        .question-card.correct-highlight {
+            border-left: 10px solid #2e9c6b;
+            background: #f4fbf8;
+        }
+        .question-card.wrong-highlight {
+            border-left: 10px solid #e07c4c;
+            background: #fffaf5;
+        }
+        .q-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1c6e4a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .q-num {
+            background: #3e8e6b;
+            color: white;
+            border-radius: 30px;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 28px;
+            margin-left: 12px;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 35px 0 20px;
+        }
+        .btn {
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .btn-primary {
+            background: #3e8e6b;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary:hover {
+            background: #2c6e50;
+        }
+        .btn-secondary {
+            background: #e2ede7;
+            color: #2d6a4f;
+        }
+        .result-panel {
+            background: #e6f4ef;
+            border-radius: 28px;
+            padding: 20px 25px;
+            margin: 25px 0 15px;
+            border: 1px solid #bdd9cd;
+        }
+        .score-big {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1c6e4a;
+        }
+        .remark {
+            font-size: 1.3rem;
+            margin-left: 12px;
+            color: #2d6a4f;
+        }
+        .mistake-list {
+            margin-top: 18px;
+            background: #fff2e9;
+            border-radius: 24px;
+            padding: 14px 20px;
+            border-left: 6px solid #e07c4c;
+        }
+        .mistake-title {
+            font-weight: 600;
+            color: #b4532a;
+            margin-bottom: 8px;
+        }
+        .mistake-item {
+            padding: 4px 0;
+            font-size: 0.9rem;
+        }
+        .footer {
+            text-align: right;
+            color: #7ba792;
+            margin-top: 12px;
+            font-size: 0.8rem;
+        }
+        @media (max-width: 600px) {
+            .exam-container {
+                padding: 18px;
+            }
+            .options {
+                gap: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="exam-container">
+    <h1>📋 手太阴肺经·小测</h1>
+    <div class="subhead">
+        <span class="score-indicator">💯 20题 · 每题5分 · 满分100分</span>
+    </div>
+
+    <div class="student-row">
+        <label>🔢 学号 (1~50):</label>
+        <input type="number" id="studentId" min="1" max="50" placeholder="请输入学号" value="">
+    </div>
+
+    <div class="quiz-form" id="quizForm"></div>
+
+    <div class="action-buttons">
+        <button class="btn btn-primary" id="submitBtn">📥 提交试卷 · 查看成绩</button>
+        <button class="btn btn-secondary" id="resetBtn">🔄 重新答题</button>
+    </div>
+
+    <div class="result-panel" id="resultPanel" style="display: none;">
+        <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;">
+            <span class="score-big" id="scoreValue">0</span><span style="font-size:1.4rem;">分</span>
+            <span class="remark" id="remarkText"></span>
+        </div>
+        <div id="mistakeContainer" class="mistake-list" style="display: none;">
+            <div class="mistake-title">📌 错题回顾</div>
+            <div id="mistakeDetails"></div>
+        </div>
+        <div style="margin-top: 12px; color: #2d6a4f;" id="scoreMessage"></div>
+    </div>
+
+    <div class="footer">
+        依据：《手太阴肺经》资料 | 经络学习自测
+    </div>
+</div>
+
+<script>
+    (function(){
+        // ----- 题库：20题，原穴题加了简要解释，列缺题加了照海承浆知识点 -----
+        const questions = [
+            // ========== 一、西医基础知识 ==========
+            { text: "根据肺的西医基础知识，肺的最小功能单位是什么，其主要功能是什么？", options: ["A. 肺叶，储存氧气", "B. 支气管，输送气体", "C. 肺泡，进行气体交换", "D. 肺段，过滤空气"], correct: "C" },
+            { text: "根据肺的西医基础知识，人体的血液小循环（肺循环）是由哪些器官构成的？", options: ["A. 肺脏与大肠", "B. 心脏与血管", "C. 肺脏与气管", "D. 肺脏与心脏"], correct: "D" },
+            
+            // ========== 二、中医基础理论 ==========
+            { text: "根据中医理论，肺的下列哪项功能直接体现了其与血液循环的关系？", options: ["A. 主气，司呼吸", "B. 辅心行血", "C. 主通调水道", "D. 主皮毛"], correct: "B" },
+            { text: "根据中医理论，肺在五行中的属性及与哪个脏腑相表里？", options: ["A. 五行属木，与小肠相表里", "B. 五行属金，与大肠相表里", "C. 五行属火，与膀胱相表里", "D. 五行属土，与胃相表里"], correct: "B" },
+            { text: "根据中医理论，肺的开窍部位和所主之液分别是什么？", options: ["A. 开窍于口，其液为涎", "B. 开窍于目，其液为泪", "C. 开窍于耳，其液为唾", "D. 开窍于鼻，其液为痰"], correct: "D" },
+            { text: "下列哪项属于肺的中医基础功能特性？", options: ["A. 进行气体交换", "B. 构成血液小循环", "C. 位于胸腔左右两侧", "D. 主通调水道"], correct: "D" },
+            { text: "根据中医理论，肺经的当令时间是以下哪个时间段？", options: ["A. 卯时（5Am-7Am）", "B. 子时（11Pm-1Am）", "C. 寅时（3Am-5Am）", "D. 丑时（1Am-3Am）"], correct: "C" },
+            { text: "根据中医理论，下列哪项是肺的功能之一？", options: ["A. 主运化", "B. 主决断", "C. 主疏泄", "D. 主皮毛"], correct: "D" },
+            
+            // ========== 三、经络循行与穴位 ==========
+            // 循行线路相关
+            { text: "根据中医经络学，手太阴肺经体表支的循行路线起点和止点分别是哪里？", options: ["A. 从胃部开始，向下络于大肠", "B. 从尺泽穴开始，到列缺穴为止", "C. 从太渊穴开始，到鱼际穴为止", "D. 从中府穴、云门穴开始，到大拇指侧甲旁的少商穴为止"], correct: "D" },
+            // 穴位定位
+            { text: "根据中医经络学，中府穴的正确位置是哪里？", options: ["A. 胸前壁的内下方，平第二肋间隙，距前正中线4寸", "B. 胸前壁的外上方，平第一肋间隙，距前正中线6寸", "C. 胸前壁的外上方，平第三肋间隙，距前正中线6寸", "D. 胸前壁的内下方，平第一肋间隙，距前正中线8寸"], correct: "B" },
+            { text: "根据中医经络学，尺泽穴的准确位置是哪里？", options: ["A. 胸前壁的外上方，平第一肋间隙，距前正中线6寸", "B. 前臂掌面桡侧，在尺泽与太渊连线上，腕横纹上7寸", "C. 腕横纹，桡动脉搏动桡侧凹陷处", "D. 肘横纹中，肱二头肌腱桡侧凹陷处"], correct: "D" },
+            { text: "根据中医经络学，孔最穴的正确位置是哪里？", options: ["A. 前臂掌面桡侧，在尺泽与太渊连线上，腕横纹上5寸", "B. 前臂掌面尺侧，在尺泽与太渊连线上，腕横纹上7寸", "C. 前臂掌面桡侧，在尺泽与太渊连线上，腕横纹上7寸", "D. 前臂掌面桡侧，在曲池与太渊连线上，腕横纹上7寸"], correct: "C" },
+            // 列缺题：加了照海、承浆知识点
+            { text: "根据中医经络学，列缺穴是手太阴肺经的络穴，有“头项寻列缺”之说，常与照海穴（足少阴肾经）、承浆穴（任脉）配合，对治咽干、咽喉肿痛有良效。请问列缺穴的正确位置是哪里？", options: ["A. 前臂掌面桡侧，在尺泽与太渊连线上，腕横纹上7寸", "B. 肘横纹中，肱二头肌腱桡侧凹陷处", "C. 腕横纹，桡动脉搏动桡侧凹陷处", "D. 前臂桡骨茎突后，腕上1.5寸"], correct: "D" },
+            { text: "根据中医经络学，太渊穴的准确位置是哪里？", options: ["A. 肘横纹中，肱二头肌腱桡侧凹陷处", "B. 前臂掌面桡侧，在尺泽与太渊连线上，腕横纹上7寸", "C. 第一掌骨桡侧缘中点赤白肉际处", "D. 在腕横纹，桡动脉搏动桡侧凹陷处"], correct: "D" },
+            { text: "根据中医经络学，手太阴肺经中鱼际穴的正确位置是哪里？", options: ["A. 腕横纹上7寸，尺泽与太渊连线上", "B. 拇指指甲轮桡侧角后凹陷处", "C. 肘横纹中，肱二头肌腱桡侧凹陷处", "D. 第一掌骨桡侧缘中点赤白肉际处"], correct: "D" },
+            { text: "根据中医经络学，手太阴肺经中少商穴的正确位置是哪里？", options: ["A. 第一掌骨桡侧缘中点赤白肉际处", "B. 腕横纹上7寸，尺泽与太渊连线上", "C. 肘横纹中，肱二头肌腱桡侧凹陷处", "D. 拇指指甲轮桡侧角后凹陷处"], correct: "D" },
+            // 原穴题（加了简要解释）
+            { text: "根据中医经络学，“原穴”是脏腑原气经过和留止的部位，对调理脏腑功能有重要作用。手太阴肺经的哪个穴位被明确标注为该经的“原穴”？", options: ["A. 中府", "B. 列缺", "C. 鱼际", "D. 太渊"], correct: "D" },
+            // 穴位数量及主治
+            { text: "根据中医经络学，手太阴肺经单侧有多少个穴位？", options: ["A. 12个", "B. 10个", "C. 9个", "D. 11个"], correct: "D" },
+            { text: "根据中医经络学，孔最穴可用于调理以下哪种病症？", options: ["A. 咽喉肿痛、咳嗽、哮喘、咯血、肘臂痛", "B. 头项强痛、牙痛、手腕痛", "C. 咳嗽、气喘、咯血、胸满", "D. 外感发热、鼻衄、咯血、失音、肘臂疼痛"], correct: "D" },
+            { text: "根据中医经络学，鱼际穴的主要调理作用不包括以下哪项？", options: ["A. 失音", "B. 疳积", "C. 咽喉肿痛", "D. 肘臂疼痛"], correct: "D" }
+        ];
+
+        const correctAnswers = questions.map(q => q.correct);
+        let userSelections = new Array(questions.length).fill(null);
+        let submitted = false;
+
+        const quizForm = document.getElementById('quizForm');
+        const resultPanel = document.getElementById('resultPanel');
+        const scoreValue = document.getElementById('scoreValue');
+        const remarkText = document.getElementById('remarkText');
+        const mistakeContainer = document.getElementById('mistakeContainer');
+        const mistakeDetails = document.getElementById('mistakeDetails');
+        const scoreMessage = document.getElementById('scoreMessage');
+        const studentIdInput = document.getElementById('studentId');
+
+        function renderQuestions() {
+            let html = '';
+            for (let i = 0; i < questions.length; i++) {
+                const q = questions[i];
+                const saved = userSelections[i];
+                html += `<div class="question-card" id="qCard${i}">`;
+                html += `<div class="q-title"><span class="q-num">${i+1}</span> ${q.text}</div>`;
+                html += `<div class="options">`;
+                q.options.forEach(opt => {
+                    const val = opt[0];
+                    const checked = (saved === val) ? 'checked' : '';
+                    html += `<label class="option-item"><input type="radio" name="q${i}" value="${val}" ${checked}> ${opt}</label>`;
+                });
+                html += `</div></div>`;
+            }
+            quizForm.innerHTML = html;
+            for (let i = 0; i < questions.length; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        userSelections[i] = e.target.value;
+                        if (submitted) {
+                            submitted = false;
+                            resultPanel.style.display = 'none';
+                            removeHighlights();
+                        }
+                    });
+                });
+            }
+        }
+
+        function removeHighlights() {
+            for (let i = 0; i < questions.length; i++) {
+                const card = document.getElementById(`qCard${i}`);
+                if (card) card.classList.remove('correct-highlight', 'wrong-highlight');
+            }
+        }
+
+        function applyHighlights() {
+            for (let i = 0; i < questions.length; i++) {
+                const card = document.getElementById(`qCard${i}`);
+                if (!card) continue;
+                const selected = userSelections[i];
+                const correct = correctAnswers[i];
+                card.classList.remove('correct-highlight', 'wrong-highlight');
+                if (selected) {
+                    if (selected === correct) card.classList.add('correct-highlight');
+                    else card.classList.add('wrong-highlight');
+                }
+            }
+        }
+
+        function computeScore() {
+            let correctCount = 0;
+            const mistakes = [];
+            for (let i = 0; i < questions.length; i++) {
+                const selected = userSelections[i];
+                if (selected && selected === correctAnswers[i]) correctCount++;
+                else mistakes.push(i+1);
+            }
+            return { correctCount, mistakes };
+        }
+
+        function showResult() {
+            const { correctCount, mistakes } = computeScore();
+            const totalScore = correctCount * 5;
+            let studentId = studentIdInput.value.trim();
+            if (studentId === '' || isNaN(parseInt(studentId)) || parseInt(studentId) < 1 || parseInt(studentId) > 50) studentId = '未填/无效';
+
+            scoreValue.innerText = totalScore;
+            let remark = '';
+            if (totalScore >= 90) remark = '优秀 🌟';
+            else if (totalScore >= 80) remark = '良好 👍';
+            else if (totalScore >= 60) remark = '及格 📚';
+            else remark = '需复习 🕒';
+            remarkText.innerText = remark;
+
+            if (mistakes.length > 0) {
+                mistakeContainer.style.display = 'block';
+                let html = '';
+                mistakes.forEach(qNo => { html += `<div class="mistake-item">❌ 第 ${qNo} 题</div>`; });
+                mistakeDetails.innerHTML = html;
+            } else {
+                mistakeContainer.style.display = 'none';
+            }
+            scoreMessage.innerText = `学号 ${studentId}  答对 ${correctCount} 题，总分 ${totalScore} 分。${mistakes.length ? '错题已用橙色高亮' : '太棒了，全对！'}`;
+            applyHighlights();
+            resultPanel.style.display = 'block';
+            submitted = true;
+        }
+
+        function resetExam() {
+            userSelections.fill(null);
+            for (let i = 0; i < questions.length; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(r => r.checked = false);
+            }
+            resultPanel.style.display = 'none';
+            submitted = false;
+            removeHighlights();
+            studentIdInput.value = '';
+        }
+
+        renderQuestions();
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            let sid = studentIdInput.value;
+            if (!sid || parseInt(sid) < 1 || parseInt(sid) > 50) alert('请填写正确的学号 (1-50)');
+            const missing = [];
+            for (let i = 0; i < questions.length; i++) if (!userSelections[i]) missing.push(i+1);
+            if (missing.length && !confirm(`第 ${missing.join(', ')} 题未选，未选视为错误。确定提交吗？`)) return;
+            showResult();
+        });
+        document.getElementById('resetBtn').addEventListener('click', resetExam);
+        resultPanel.style.display = 'none';
+    })();
+</script>
+</body>
+</html>
