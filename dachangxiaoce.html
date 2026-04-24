@@ -1,0 +1,458 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>手阳明大肠经自测卷</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', '微软雅黑', Roboto, sans-serif;
+        }
+        body {
+            background: #eef4f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .exam-container {
+            max-width: 950px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px rgba(0,20,0,0.1);
+            padding: 28px 32px;
+            border: 1px solid #cbdcd0;
+        }
+        h1 {
+            font-size: 1.9rem;
+            color: #1c5a3a;
+            margin: 0 0 8px 0;
+            border-left: 8px solid #3e8e6b;
+            padding-left: 20px;
+        }
+        .subhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0 20px 0;
+            color: #2d6a4f;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .score-indicator {
+            background: #d8f0e6;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .student-row {
+            background: #f8fefb;
+            border: 1px solid #c0dfcf;
+            border-radius: 50px;
+            padding: 10px 25px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .student-row label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1c6e4a;
+        }
+        .student-row input {
+            border: 2px solid #c0dfcf;
+            border-radius: 40px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            width: 170px;
+            outline: none;
+        }
+        .student-row input:focus {
+            border-color: #3e8e6b;
+        }
+        .question-card {
+            background: #ffffff;
+            border: 1px solid #d4e6dc;
+            border-radius: 24px;
+            padding: 16px 22px;
+            margin-bottom: 12px;
+            transition: 0.1s;
+        }
+        .question-card.correct-highlight {
+            border-left: 10px solid #2e9c6b;
+            background: #f4fbf8;
+        }
+        .question-card.wrong-highlight {
+            border-left: 10px solid #e07c4c;
+            background: #fffaf5;
+        }
+        .q-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1c6e4a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .q-num {
+            background: #3e8e6b;
+            color: white;
+            border-radius: 30px;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 28px;
+            margin-left: 12px;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 35px 0 20px;
+        }
+        .btn {
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+        .btn-primary {
+            background: #3e8e6b;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-primary:hover {
+            background: #2c6e50;
+        }
+        .btn-secondary {
+            background: #e2ede7;
+            color: #2d6a4f;
+        }
+        .result-panel {
+            background: #e6f4ef;
+            border-radius: 28px;
+            padding: 20px 25px;
+            margin: 25px 0 15px;
+            border: 1px solid #bdd9cd;
+        }
+        .score-big {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1c6e4a;
+        }
+        .remark {
+            font-size: 1.3rem;
+            margin-left: 12px;
+            color: #2d6a4f;
+        }
+        .mistake-list {
+            margin-top: 18px;
+            background: #fff2e9;
+            border-radius: 24px;
+            padding: 14px 20px;
+            border-left: 6px solid #e07c4c;
+        }
+        .mistake-title {
+            font-weight: 600;
+            color: #b4532a;
+            margin-bottom: 8px;
+        }
+        .mistake-item {
+            padding: 4px 0;
+            font-size: 0.9rem;
+        }
+        .answer-key {
+            margin-top: 30px;
+            background: #f4f9f5;
+            border-radius: 28px;
+            padding: 20px 25px;
+            border: 1px solid #c8e0d4;
+        }
+        .answer-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1c6e4a;
+            border-left: 6px solid #3e8e6b;
+            padding-left: 16px;
+            margin-bottom: 16px;
+        }
+        .answer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        .answer-item {
+            background: white;
+            border-radius: 20px;
+            padding: 10px 16px;
+            border: 1px solid #d4e6dc;
+            font-size: 0.9rem;
+        }
+        .answer-q {
+            font-weight: 700;
+            color: #2d6a4f;
+            margin-right: 8px;
+        }
+        .answer-opt {
+            color: #b45f2b;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        .answer-exp {
+            color: #4a6b5c;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            padding-left: 8px;
+            border-left: 3px solid #c8e0d4;
+        }
+        .footer {
+            text-align: right;
+            color: #7ba792;
+            margin-top: 12px;
+            font-size: 0.8rem;
+        }
+        @media (max-width: 600px) {
+            .exam-container {
+                padding: 18px;
+            }
+            .options {
+                gap: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="exam-container">
+    <h1>手阳明大肠经·自测卷</h1>
+    <div class="subhead">
+        <span class="score-indicator">20题 · 每题5分 · 满分100分</span>
+    </div>
+
+    <div class="student-row">
+        <label>📝 学号 (1~50):</label>
+        <input type="number" id="studentId" min="1" max="50" placeholder="请输入学号" value="">
+    </div>
+
+    <div class="quiz-form" id="quizForm"></div>
+
+    <div class="action-buttons">
+        <button class="btn btn-primary" id="submitBtn">📥 提交试卷 · 查看成绩</button>
+        <button class="btn btn-secondary" id="resetBtn">🔄 重新答题</button>
+    </div>
+
+    <div class="result-panel" id="resultPanel" style="display: none;">
+        <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;">
+            <span class="score-big" id="scoreValue">0</span><span style="font-size:1.4rem;">分</span>
+            <span class="remark" id="remarkText"></span>
+        </div>
+        <div id="mistakeContainer" class="mistake-list" style="display: none;">
+            <div class="mistake-title">📌 错题回顾</div>
+            <div id="mistakeDetails"></div>
+        </div>
+        <div style="margin-top: 12px; color: #2d6a4f;" id="scoreMessage"></div>
+    </div>
+
+    <div class="answer-key" id="answerKey">
+        <div class="answer-title">📖 标准答案与解析</div>
+        <div class="answer-grid" id="answerGrid"></div>
+    </div>
+
+    <div class="footer">
+        依据：《手阳明大肠经》资料 | 经络学习自测
+    </div>
+</div>
+
+<script>
+    (function(){
+        // ----- 题库：完全按照最终定稿逐题核对（2026-04-23最终修正版）-----
+        const questions = [
+            { text: "根据西医基础知识，大肠的长度约为多少？", options: ["A. 0.5米", "B. 1.0米", "C. 1.5米", "D. 2.0米"], correct: "C", explanation: "大肠长约1.5米，包绕在小肠周围。" },
+            { text: "大肠内的益生菌可利用膳食纤维合成以下哪种维生素？", options: ["A. 维生素A和D", "B. 维生素B族和K", "C. 维生素C和E", "D. 维生素B12和叶酸"], correct: "B", explanation: "益生菌利用膳食纤维合成维生素B族和K。" },
+            { text: "大肠吸收食物残渣中的水分和电解质后，最终形成并排泄的产物是？", options: ["A. 尿液", "B. 汗液", "C. 粪便", "D. 气体"], correct: "C", explanation: "大肠吸收水分和电解质后，形成、贮存和排泄粪便。" },
+            { text: "手阳明大肠经单侧共有多少个穴位？", options: ["A. 18个", "B. 20个", "C. 22个", "D. 24个"], correct: "B", explanation: "手阳明大肠经单侧共有20个穴位。" },
+            { text: "大肠经体表支最终与哪条经脉在迎香穴交接？", options: ["A. 手太阴肺经", "B. 足阳明胃经", "C. 足太阴脾经", "D. 手少阳三焦经"], correct: "B", explanation: "体表支止于迎香穴，与足阳明胃经交接。" },
+            { text: "根据中医理论，大肠被称为“传道之官”，其主要作用是？", options: ["A. 储存气血", "B. 分泌胆汁", "C. 规律性运动，传送糟粕", "D. 生成津液"], correct: "C", explanation: "大肠为传道之官，通过规律运动将粪便排出体外。" },
+            { text: "中医认为，大肠与哪个脏腑相表里？", options: ["A. 心", "B. 肝", "C. 脾", "D. 肺"], correct: "D", explanation: "大肠与肺相表里，同属金行。" },
+            { text: "手阳明大肠经的当令时间是？", options: ["A. 寅时（3-5点）", "B. 卯时（5-7点）", "C. 辰时（7-9点）", "D. 巳时（9-11点）"], correct: "B", explanation: "大肠经当令于卯时（5-7点）。" },
+            { text: "手阳明大肠经的循行，在经过肩部后，向上与哪条经脉的大椎穴相交会？", options: ["A. 胆经", "B. 膀胱经", "C. 督脉", "D. 三焦经"], correct: "C", explanation: "经过肩部后，向上与大椎穴相交会，大椎穴属督脉。" },
+            { text: "被称为大肠经“原穴”，主治头面五官病症的穴位是？", options: ["A. 阳溪", "B. 合谷", "C. 曲池", "D. 迎香"], correct: "B", explanation: "合谷为大肠经原穴，善治头面五官病。" },
+            { text: "下列穴位中，最常用于治疗高血压和皮肤病的是？", options: ["A. 合谷", "B. 迎香", "C. 曲池", "D. 偏历"], correct: "C", explanation: "曲池常用于高血压、皮肤病及上肢问题。" },
+            { text: "位于鼻翼外缘中点旁，主治鼻塞、面瘫的穴位是？", options: ["A. 合谷", "B. 迎香", "C. 商阳", "D. 曲池"], correct: "B", explanation: "迎香穴在鼻翼外缘中点旁，治鼻塞、面瘫。" },
+            { text: "位于曲池下2寸，可调理五官病症和肠道疾病的穴位是？", options: ["A. 阳溪", "B. 偏历", "C. 臂臑", "D. 手三里"], correct: "D", explanation: "手三里在曲池下2寸，调理五官病、肠道病。" },
+            { text: "位于肘横纹外侧端与肱骨外上髁连线中点，常用于调理高血压、皮肤病、上肢不利的是？", options: ["A. 手三里", "B. 尺泽", "C. 曲池", "D. 肩髃"], correct: "C", explanation: "曲池为大肠经合穴，主治高血压、皮肤病、上肢不利。" },
+            { text: "位于肩峰前下方，举臂时呈凹陷处的穴位是？", options: ["A. 肩髃", "B. 臂臑", "C. 曲池", "D. 阳溪"], correct: "A", explanation: "肩髃在肩峰前下方，举臂时凹陷处，治肩臂病。" },
+            { text: "位于三角肌下端止点处，可调理眼病和肩臂痛的穴位是？", options: ["A. 臂臑", "B. 偏历", "C. 阳溪", "D. 手三里"], correct: "A", explanation: "臂臑在三角肌下端止点，治眼病、肩臂痛。" },
+            { text: "合谷配颊车，主要适用于治疗以下哪种病因导致的牙痛？", options: ["A. 胃火炽盛", "B. 风热外袭", "C. 肾阴不足", "D. 肝阳上亢"], correct: "C", explanation: "合谷配颊车滋阴降火，治肾阴不足之虚性牙痛。" },
+            { text: "合谷配天枢，主要作用是？", options: ["A. 调节血压", "B. 治疗便秘", "C. 治疗头痛", "D. 治疗牙痛"], correct: "B", explanation: "合谷配天枢为治疗便秘常用对穴。" },
+            { text: "合谷配内关，在临床上主要用于调理以下哪种情况？", options: ["A. 头痛、失眠", "B. 发热、咽痛", "C. 高血压、低血压、血压不稳", "D. 便秘、腹胀"], correct: "C", explanation: "合谷配内关对血压具有双向调节作用。" },
+            { text: "以下哪个配穴组合最常用于调理头痛？", options: ["A. 合谷+颊车", "B. 合谷+支沟", "C. 合谷+天枢", "D. 合谷+印堂+太阳"], correct: "D", explanation: "合谷配印堂、太阳为治疗头痛常用配穴。" }
+        ];
+
+        const correctAnswers = questions.map(q => q.correct);
+        let userSelections = new Array(questions.length).fill(null);
+        let submitted = false;
+
+        const quizForm = document.getElementById('quizForm');
+        const resultPanel = document.getElementById('resultPanel');
+        const scoreValue = document.getElementById('scoreValue');
+        const remarkText = document.getElementById('remarkText');
+        const mistakeContainer = document.getElementById('mistakeContainer');
+        const mistakeDetails = document.getElementById('mistakeDetails');
+        const scoreMessage = document.getElementById('scoreMessage');
+        const studentIdInput = document.getElementById('studentId');
+        const answerGrid = document.getElementById('answerGrid');
+
+        function renderAnswerKey() {
+            let html = '';
+            questions.forEach((q, idx) => {
+                html += `<div class="answer-item">
+                            <div><span class="answer-q">${idx+1}.</span> <strong>正确答案：<span class="answer-opt">${q.correct}</span></strong></div>
+                            <div class="answer-exp">📖 ${q.explanation}</div>
+                         </div>`;
+            });
+            answerGrid.innerHTML = html;
+        }
+
+        function renderQuestions() {
+            let html = '';
+            for (let i = 0; i < questions.length; i++) {
+                const q = questions[i];
+                const saved = userSelections[i];
+                html += `<div class="question-card" id="qCard${i}">`;
+                html += `<div class="q-title"><span class="q-num">${i+1}</span> ${q.text}</div>`;
+                html += `<div class="options">`;
+                q.options.forEach(opt => {
+                    const val = opt[0];
+                    const checked = (saved === val) ? 'checked' : '';
+                    html += `<label class="option-item"><input type="radio" name="q${i}" value="${val}" ${checked}> ${opt}</label>`;
+                });
+                html += `</div></div>`;
+            }
+            quizForm.innerHTML = html;
+            for (let i = 0; i < questions.length; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        userSelections[i] = e.target.value;
+                        if (submitted) {
+                            submitted = false;
+                            resultPanel.style.display = 'none';
+                            removeHighlights();
+                        }
+                    });
+                });
+            }
+        }
+
+        function removeHighlights() {
+            for (let i = 0; i < questions.length; i++) {
+                const card = document.getElementById(`qCard${i}`);
+                if (card) card.classList.remove('correct-highlight', 'wrong-highlight');
+            }
+        }
+
+        function applyHighlights() {
+            for (let i = 0; i < questions.length; i++) {
+                const card = document.getElementById(`qCard${i}`);
+                if (!card) continue;
+                const selected = userSelections[i];
+                const correct = correctAnswers[i];
+                card.classList.remove('correct-highlight', 'wrong-highlight');
+                if (selected) {
+                    if (selected === correct) card.classList.add('correct-highlight');
+                    else card.classList.add('wrong-highlight');
+                }
+            }
+        }
+
+        function computeScore() {
+            let correctCount = 0;
+            const mistakes = [];
+            for (let i = 0; i < questions.length; i++) {
+                const selected = userSelections[i];
+                if (selected && selected === correctAnswers[i]) correctCount++;
+                else mistakes.push(i+1);
+            }
+            return { correctCount, mistakes };
+        }
+
+        function showResult() {
+            const { correctCount, mistakes } = computeScore();
+            const totalScore = correctCount * 5;
+            let studentId = studentIdInput.value.trim();
+            if (studentId === '' || isNaN(parseInt(studentId)) || parseInt(studentId) < 1 || parseInt(studentId) > 50) studentId = '未填/无效';
+
+            scoreValue.innerText = totalScore;
+            let remark = '';
+            if (totalScore >= 90) remark = '优秀 🌟';
+            else if (totalScore >= 80) remark = '良好 👍';
+            else if (totalScore >= 60) remark = '及格 📚';
+            else remark = '需复习 🕒';
+            remarkText.innerText = remark;
+
+            if (mistakes.length > 0) {
+                mistakeContainer.style.display = 'block';
+                let html = '';
+                mistakes.forEach(qNo => { html += `<div class="mistake-item">❌ 第 ${qNo} 题</div>`; });
+                mistakeDetails.innerHTML = html;
+            } else {
+                mistakeContainer.style.display = 'none';
+            }
+            scoreMessage.innerText = `学号 ${studentId}  答对 ${correctCount} 题，总分 ${totalScore} 分。${mistakes.length ? '错题已用橙色高亮' : '太棒了，全对！'}`;
+            applyHighlights();
+            resultPanel.style.display = 'block';
+            submitted = true;
+        }
+
+        function resetExam() {
+            userSelections.fill(null);
+            for (let i = 0; i < questions.length; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(r => r.checked = false);
+            }
+            resultPanel.style.display = 'none';
+            submitted = false;
+            removeHighlights();
+            studentIdInput.value = '';
+        }
+
+        renderAnswerKey();
+        renderQuestions();
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            let sid = studentIdInput.value;
+            if (!sid || parseInt(sid) < 1 || parseInt(sid) > 50) alert('请填写正确的学号 (1-50)');
+            const missing = [];
+            for (let i = 0; i < questions.length; i++) if (!userSelections[i]) missing.push(i+1);
+            if (missing.length && !confirm(`第 ${missing.join(', ')} 题未选，未选视为错误。确定提交吗？`)) return;
+            showResult();
+        });
+        document.getElementById('resetBtn').addEventListener('click', resetExam);
+        resultPanel.style.display = 'none';
+    })();
+</script>
+</body>
+</html>
