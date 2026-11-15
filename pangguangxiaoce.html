@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>足太阳膀胱经小测</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', '微软雅黑', Roboto, sans-serif;
+        }
+        body {
+            background: #eef4f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .exam-container {
+            max-width: 950px;
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px rgba(0,20,0,0.1);
+            padding: 28px 32px;
+            border: 1px solid #cbdcd0;
+        }
+        h1 {
+            font-size: 1.8rem;
+            color: #1c5a3a;
+            margin: 0 0 8px 0;
+            border-left: 8px solid #3e8e6b;
+            padding-left: 20px;
+        }
+        .subhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0 20px 0;
+            color: #2d6a4f;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .score-indicator {
+            background: #d8f0e6;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 500;
+            font-size: 1rem;
+        }
+        .student-row {
+            background: #f8fefb;
+            border: 1px solid #c0dfcf;
+            border-radius: 50px;
+            padding: 10px 25px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .student-row label {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #1c6e4a;
+        }
+        .student-row input {
+            border: 2px solid #c0dfcf;
+            border-radius: 40px;
+            padding: 10px 18px;
+            font-size: 1rem;
+            width: 170px;
+            outline: none;
+        }
+        .question-card {
+            background: #ffffff;
+            border: 1px solid #d4e6dc;
+            border-radius: 24px;
+            padding: 16px 22px;
+            margin-bottom: 12px;
+            transition: 0.1s;
+        }
+        .question-card.correct-highlight {
+            border-left: 10px solid #2e9c6b;
+            background: #f4fbf8;
+        }
+        .question-card.wrong-highlight {
+            border-left: 10px solid #e07c4c;
+            background: #fffaf5;
+        }
+        .q-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1c6e4a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .q-num {
+            background: #3e8e6b;
+            color: white;
+            border-radius: 30px;
+            width: 26px;
+            height: 26px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 28px;
+            margin-left: 12px;
+        }
+        .option-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95rem;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 35px 0 20px;
+        }
+        .btn {
+            border: none;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background: #3e8e6b;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .btn-secondary {
+            background: #e2ede7;
+            color: #2d6a4f;
+        }
+        .result-panel {
+            background: #e6f4ef;
+            border-radius: 28px;
+            padding: 20px 25px;
+            margin: 25px 0 15px;
+            border: 1px solid #bdd9cd;
+        }
+        .score-big {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1c6e4a;
+        }
+        .mistake-list {
+            margin-top: 18px;
+            background: #fff2e9;
+            border-radius: 24px;
+            padding: 14px 20px;
+            border-left: 6px solid #e07c4c;
+        }
+        .answer-key-section {
+            margin-top: 30px;
+            background: #f4f9f5;
+            border-radius: 24px;
+            padding: 20px 25px;
+            border: 1px solid #c8e0d4;
+        }
+        .answer-key-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1c6e4a;
+            border-left: 6px solid #3e8e6b;
+            padding-left: 16px;
+            margin-bottom: 16px;
+        }
+        .answer-item {
+            padding: 6px 0;
+            border-bottom: 1px dashed #d8e8dc;
+            font-size: 0.95rem;
+        }
+        .footer {
+            text-align: right;
+            color: #7ba792;
+            margin-top: 12px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="exam-container">
+    <h1>📋 足太阳膀胱经小测</h1>
+    <div class="subhead">
+        <span class="score-indicator">💯 50题 · 每题2分 · 满分100分</span>
+    </div>
+
+    <div class="student-row">
+        <label>🔢 学号 (1~50):</label>
+        <input type="number" id="studentId" min="1" max="50" placeholder="请输入学号" value="">
+    </div>
+
+    <div class="quiz-form" id="quizForm"></div>
+
+    <div class="action-buttons">
+        <button class="btn btn-primary" id="submitBtn">📥 提交试卷 · 查看成绩</button>
+        <button class="btn btn-secondary" id="resetBtn">🔄 重新答题</button>
+    </div>
+
+    <div class="result-panel" id="resultPanel" style="display: none;">
+        <div style="display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;">
+            <span class="score-big" id="scoreValue">0</span><span style="font-size:1.4rem;">分</span>
+            <span class="remark" id="remarkText"></span>
+        </div>
+        <div id="mistakeContainer" class="mistake-list" style="display: none;">
+            <div class="mistake-title">📌 错题回顾</div>
+            <div id="mistakeDetails"></div>
+        </div>
+        <div style="margin-top: 12px; color: #2d6a4f;" id="scoreMessage"></div>
+    </div>
+
+    <div class="answer-key-section">
+        <div class="answer-key-title">📖 标准答案与解析</div>
+        <div id="answerKeyGrid"></div>
+    </div>
+
+    <div class="footer">
+        依据：《足太阳膀胱经》资料 | 经络学习自测
+    </div>
+</div>
+
+<script>
+    (function(){
+        // 已经过逐题核对，选项打散，正确答案与字母严格对应
+        const questions = [
+            { text: "根据西医基础知识，正常成人每日尿量大约为？", options: ["A. 500ml", "B. 1000ml", "C. 1500ml", "D. 2500ml"], correct: "C", explanation: "正常成人每日尿量1500毫升左右。" },
+            { text: "根据西医基础知识，膀胱的主要生理功能是？", options: ["A. 分泌尿液", "B. 储存尿液", "C. 过滤血液", "D. 重吸收水分"], correct: "B", explanation: "膀胱是存尿的容器。" },
+            { text: "中医认为，膀胱的开合与排尿（降浊）功能，主要依赖哪个脏腑的气化作用？", options: ["A. 心", "B. 肝", "C. 脾", "D. 肾"], correct: "D", explanation: "尿液的生成需肾的气化。" },
+            { text: "根据中医理论，膀胱与哪个脏腑相表里？", options: ["A. 肾", "B. 心", "C. 小肠", "D. 三焦"], correct: "A", explanation: "膀胱为六腑之一，与肾相表里。" },
+            { text: "足太阳膀胱经的当令时间是？", options: ["A. 未时（13-15点）", "B. 申时（15-17点）", "C. 酉时（17-19点）", "D. 戌时（19-21点）"], correct: "B", explanation: "膀胱经当令时间：申时（3Pm-5Pm）。" },
+            { text: "足太阳膀胱经是身体最大的什么通道？", options: ["A. 气血通道", "B. 排邪通道", "C. 水液通道", "D. 神经通道"], correct: "B", explanation: "膀胱经是身体最大的排邪通道，也是抵挡外界邪气的屏障。" },
+            { text: "膀胱经上，五脏六腑经气输注于背腰部的穴位被称为？", options: ["A. 募穴", "B. 原穴", "C. 背俞穴", "D. 络穴"], correct: "C", explanation: "膀胱经上有五脏六腑经气输注于背腰部的穴位，称背腧穴。" },
+            { text: "足太阳膀胱经的体表支，起始于哪个穴位？", options: ["A. 攒竹", "B. 睛明", "C. 天柱", "D. 至阴"], correct: "B", explanation: "体表支起始于内眼角（睛明穴）。" },
+            { text: "足太阳膀胱经的体表支，终点是哪个穴位？", options: ["A. 至阴", "B. 昆仑", "C. 申脉", "D. 京骨"], correct: "A", explanation: "足外侧到小趾外侧的井穴（至阴穴）。" },
+            { text: "足太阳膀胱经单侧共有多少个穴位？", options: ["A. 45个", "B. 55个", "C. 67个", "D. 72个"], correct: "C", explanation: "足太阳膀胱经单侧有67个穴位。" },
+            { text: "位于目内眦斜上1分许，主治眼病、夜盲的穴位是？", options: ["A. 攒竹", "B. 睛明", "C. 天柱", "D. 大杼"], correct: "B", explanation: "睛明位于目内眦斜上1分许。" },
+            { text: "位于上眼眶内侧端，主治头额痛、眼病、面瘫的穴位是？", options: ["A. 睛明", "B. 攒竹", "C. 天柱", "D. 风门"], correct: "B", explanation: "攒竹位于上眼眶内侧端。" },
+            { text: "位于项后发际，约在哑门旁1.3寸处，主治头痛、项强的穴位是？", options: ["A. 大杼", "B. 风门", "C. 天柱", "D. 肺俞"], correct: "C", explanation: "天柱位于项后发际，约在哑门旁1.3寸处。" },
+            { text: "位于第1胸椎棘突下旁开1.5寸处，主治发热头痛、项强、气喘的穴位是？", options: ["A. 大杼", "B. 风门", "C. 肺俞", "D. 心俞"], correct: "A", explanation: "大杼位于第1胸椎棘突下旁开1.5寸处。" },
+            // 第15-41题选项已打散
+            { text: "位于第2胸椎棘突下旁开1.5寸，主治发热、咳嗽、哮喘的穴位是？", options: ["A. 肺俞", "B. 风门", "C. 心俞", "D. 大杼"], correct: "B", explanation: "风门位于第2胸椎棘突下旁开1.5寸。" },
+            { text: "位于第3胸椎棘突下旁开1.5寸，主治哮喘、咳嗽、胸痛、虚弱的穴位是？", options: ["A. 风门", "B. 肺俞", "C. 心俞", "D. 督俞"], correct: "B", explanation: "肺俞位于第3胸椎棘突下旁开1.5寸。" },
+            { text: "位于第5胸椎棘突下旁开1.5寸，主治心悸、健忘、咳嗽、虚弱的穴位是？", options: ["A. 肺俞", "B. 心俞", "C. 督俞", "D. 膈俞"], correct: "B", explanation: "心俞位于第5胸椎棘突下旁开1.5寸。" },
+            { text: "位于第6胸椎棘突下旁开1.5寸处，主治胸腹痛、呕吐的穴位是？", options: ["A. 心俞", "B. 督俞", "C. 膈俞", "D. 肝俞"], correct: "B", explanation: "督俞位于第6胸椎棘突下旁开1.5寸处。" },
+            { text: "位于第7胸椎棘突下旁开1.5寸，主治打嗝、呕吐、贫血、皮肤瘙痒的穴位是？", options: ["A. 督俞", "B. 膈俞", "C. 肝俞", "D. 胆俞"], correct: "B", explanation: "膈俞位于第7胸椎棘突下旁开1.5寸。" },
+            { text: "位于第9胸椎棘突下旁开1.5寸处，主治胸胁痛、腹痛、黄疸、目疾的穴位是？", options: ["A. 膈俞", "B. 肝俞", "C. 胆俞", "D. 脾俞"], correct: "B", explanation: "肝俞位于第9胸椎棘突下旁开1.5寸处。" },
+            { text: "位于第10胸椎棘突下旁开1.5寸处，主治胸胁痛、腹痛、黄疸、呃逆的穴位是？", options: ["A. 肝俞", "B. 胆俞", "C. 脾俞", "D. 胃俞"], correct: "B", explanation: "胆俞位于第10胸椎棘突下旁开1.5寸处。" },
+            { text: "位于第11胸椎棘突下旁开1.5寸处，主治胸胁痛、腹痛、黄疸、呕吐、消化不良的穴位是？", options: ["A. 胆俞", "B. 脾俞", "C. 胃俞", "D. 肾俞"], correct: "B", explanation: "脾俞位于第11胸椎棘突下旁开1.5寸处。" },
+            { text: "位于第12胸椎棘突下旁开1.5寸处，主治腹胀痛、消化不良、呕吐的穴位是？", options: ["A. 脾俞", "B. 胃俞", "C. 肾俞", "D. 大肠俞"], correct: "B", explanation: "胃俞位于第12胸椎棘突下旁开1.5寸处。" },
+            { text: "位于第2腰椎棘突下旁开1.5寸处，主治虚弱、腰痛、肢冷、遗精、尿频的穴位是？", options: ["A. 胃俞", "B. 肾俞", "C. 大肠俞", "D. 关元俞"], correct: "B", explanation: "肾俞位于第2腰椎棘突下旁开1.5寸处。" },
+            { text: "位于第4腰椎棘突下旁开1.5寸处，主治腹泻、便秘、腰痛、坐骨神经痛的穴位是？", options: ["A. 肾俞", "B. 大肠俞", "C. 关元俞", "D. 膀胱俞"], correct: "B", explanation: "大肠俞位于第4腰椎棘突下旁开1.5寸处。" },
+            { text: "位于第5腰椎棘突下旁开1.5寸处，主治腹泻、遗尿、腰痛、坐骨神经痛的穴位是？", options: ["A. 大肠俞", "B. 关元俞", "C. 膀胱俞", "D. 上髎"], correct: "B", explanation: "关元俞位于第5腰椎棘突下旁开1.5寸处。" },
+            { text: "位于第2骶椎下旁开正中线1.5寸处，主治腹泻、遗尿、腰痛、坐骨神经痛的穴位是？", options: ["A. 关元俞", "B. 膀胱俞", "C. 上髎", "D. 会阳"], correct: "B", explanation: "膀胱俞位于第2骶椎下旁开正中线1.5寸处。" },
+            { text: "位于第1骶后孔中，主治盆腔、骶部及下肢病症的穴位是？", options: ["A. 膀胱俞", "B. 上髎", "C. 会阳", "D. 附分"], correct: "B", explanation: "上髎位于第1骶后孔中。" },
+            { text: "位于尾骨尖旁开0.5寸处，主治腹泻、便血、脱肛、遗尿、阳痿的穴位是？", options: ["A. 上髎", "B. 会阳", "C. 附分", "D. 膏肓俞"], correct: "B", explanation: "会阳位于尾骨尖旁开0.5寸处。" },
+            { text: "位于第2胸椎棘突下旁开3寸处，主治肩背拘急、颈项强直、肘臂麻木的穴位是？", options: ["A. 会阳", "B. 附分", "C. 膏肓俞", "D. 膈关"], correct: "B", explanation: "附分位于第2胸椎棘突下旁开3寸处。" },
+            { text: "位于第4胸椎棘突下旁开3寸处，主治哮喘、咳嗽、虚弱的穴位是？", options: ["A. 附分", "B. 膏肓俞", "C. 膈关", "D. 志室"], correct: "B", explanation: "膏肓俞位于第4胸椎棘突下旁开3寸处。" },
+            { text: "位于第7胸椎棘突下旁开3寸处，主治饮食不下、呕吐、嗳气、脊背痛的穴位是？", options: ["A. 膏肓俞", "B. 膈关", "C. 志室", "D. 秩边"], correct: "B", explanation: "膈关位于第7胸椎棘突下旁开3寸处。" },
+            { text: "位于第2腰椎棘突下旁开3寸，主治腰痛、大小便不利、遗精的穴位是？", options: ["A. 膈关", "B. 志室", "C. 秩边", "D. 承扶"], correct: "B", explanation: "志室位于第2腰椎棘突下旁开3寸。" },
+            { text: "位于骶正中线旁开3寸，平第4骶后孔，主治坐骨神经痛、盆腔脏器疾病的穴位是？", options: ["A. 志室", "B. 秩边", "C. 承扶", "D. 委中"], correct: "B", explanation: "秩边位于骶正中线旁开3寸，平第4骶后孔。" },
+            { text: "位于臀下横纹正中央，主治坐骨神经痛、下肢瘫痪的穴位是？", options: ["A. 秩边", "B. 承扶", "C. 委中", "D. 承山"], correct: "B", explanation: "承扶位于臀下横纹正中央。" },
+            { text: "位于腘窝横纹正中，主治腰脊强痛、坐骨神经痛、中暑的穴位是？", options: ["A. 承扶", "B. 委中", "C. 承山", "D. 昆仑"], correct: "B", explanation: "委中位于腘窝横纹正中。" },
+            { text: "位于腓肠肌肌腹下正中，主治坐骨神经痛、腓肠肌痉挛、痔疾的穴位是？", options: ["A. 委中", "B. 承山", "C. 昆仑", "D. 申脉"], correct: "B", explanation: "承山位于腓肠肌肌腹下正中。" },
+            { text: "位于外踝尖与跟腱之间凹陷处，主治腰痛、足跟痛、项强痛的穴位是？", options: ["A. 承山", "B. 昆仑", "C. 申脉", "D. 京骨"], correct: "B", explanation: "昆仑位于外踝尖与跟腱之间凹陷处。" },
+            { text: "位于外踝下缘正中凹陷处，主治头痛、项强、腰腿痛、癫痫的穴位是？", options: ["A. 昆仑", "B. 申脉", "C. 京骨", "D. 至阴"], correct: "B", explanation: "申脉位于外踝下缘正中凹陷处。" },
+            { text: "被称为膀胱经“原穴”，位于第5跖骨粗隆下方赤白肉际处的穴位是？", options: ["A. 申脉", "B. 京骨", "C. 至阴", "D. 昆仑"], correct: "B", explanation: "京骨为膀胱经原穴，位于第5跖骨粗隆下方赤白肉际处。" },
+            { text: "位于足小趾趾甲轮外侧角后方凹陷处，主治头痛、胎位不正（灸）的穴位是？", options: ["A. 京骨", "B. 至阴", "C. 申脉", "D. 昆仑"], correct: "B", explanation: "至阴位于足小趾趾甲轮外侧角后方凹陷处。" },
+            // 第42-50题恢复正常分布
+            { text: "根据背俞穴位歌决，胸椎“肺三心包四”，心俞在第几胸椎棘突下？", options: ["A. 第3胸椎", "B. 第4胸椎", "C. 第5胸椎", "D. 第9胸椎"], correct: "C", explanation: "歌决：胸椎肺三心包四，心五肝九胆脾胃。心俞在第5胸椎。" },
+            { text: "根据背俞穴位歌决，肝俞在第几胸椎棘突下旁开1.5寸？", options: ["A. 第7胸椎", "B. 第9胸椎", "C. 第10胸椎", "D. 第11胸椎"], correct: "B", explanation: "歌决：心五肝九胆脾胃。肝俞在第9胸椎。" },
+            { text: "根据背俞穴位歌决，大肠俞在第几腰椎棘突下旁开1.5寸？", options: ["A. 第2腰椎", "B. 第3腰椎", "C. 第4腰椎", "D. 第5腰椎"], correct: "C", explanation: "歌决：腰椎第一是三焦，第二肾俞大肠四。大肠俞在第4腰椎。" },
+            { text: "根据背俞穴位歌决，小肠俞在第几骶椎后孔平对之？", options: ["A. 第1骶椎", "B. 第2骶椎", "C. 第3骶椎", "D. 第4骶椎"], correct: "A", explanation: "歌决：骶骨后孔平对之，第一小肠膀胱二。小肠俞平第1骶椎。" },
+            { text: "关于委中穴的调理作用，以下哪项描述是不正确的？", options: ["A. 腰脊强痛", "B. 中暑", "C. 滞产", "D. 小便不利"], correct: "C", explanation: "滞产是昆仑穴或至阴穴的主治，不是委中。" },
+            { text: "关于承山穴的调理作用，以下哪项描述是不正确的？", options: ["A. 腓肠肌痉挛", "B. 痔疾", "C. 脱肛", "D. 胎位不正"], correct: "D", explanation: "胎位不正是至阴穴的主治（灸），不是承山。" },
+            { text: "关于昆仑穴的取穴位置，正确的是？", options: ["A. 外踝下缘正中凹陷处", "B. 外踝尖与跟腱之间凹陷处", "C. 第5跖骨粗隆下方", "D. 足小趾趾甲外侧角后"], correct: "B", explanation: "昆仑位于外踝尖与跟腱之间凹陷处。" },
+            { text: "足太阳膀胱经在头部的支脉，入里联络了哪个器官？", options: ["A. 眼睛", "B. 耳朵", "C. 大脑", "D. 鼻子"], correct: "C", explanation: "在头部有支脉入里联络大脑。" },
+            { text: "足太阳膀胱经在腰部有脉气深入，联络了哪些脏腑？", options: ["A. 联络心、络小肠", "B. 联络膀胱、络肾", "C. 联络肝、络胆", "D. 联络脾、络胃"], correct: "B", explanation: "在腰部有脉气深入与膀胱相联、络肾。" }
+        ];
+
+        const correctAnswers = questions.map(q => q.correct);
+        let userSelections = new Array(questions.length).fill(null);
+        let submitted = false;
+
+        const quizForm = document.getElementById('quizForm');
+        const resultPanel = document.getElementById('resultPanel');
+        const scoreValue = document.getElementById('scoreValue');
+        const remarkText = document.getElementById('remarkText');
+        const mistakeContainer = document.getElementById('mistakeContainer');
+        const mistakeDetails = document.getElementById('mistakeDetails');
+        const scoreMessage = document.getElementById('scoreMessage');
+        const studentIdInput = document.getElementById('studentId');
+        const answerGrid = document.getElementById('answerKeyGrid');
+
+        function renderAnswerKey() {
+            let html = '';
+            questions.forEach((q, idx) => {
+                html += `<div class="answer-item"><strong>${idx+1}.</strong> 正确答案：<strong>${q.correct}</strong> — ${q.explanation}</div>`;
+            });
+            answerGrid.innerHTML = html;
+        }
+
+        function renderQuestions() {
+            let html = '';
+            for (let i = 0; i < questions.length; i++) {
+                const q = questions[i];
+                const saved = userSelections[i];
+                html += `<div class="question-card" id="qCard${i}">`;
+                html += `<div class="q-title"><span class="q-num">${i+1}</span> ${q.text}</div>`;
+                html += `<div class="options">`;
+                q.options.forEach(opt => {
+                    const val = opt[0];
+                    const checked = (saved === val) ? 'checked' : '';
+                    html += `<label class="option-item"><input type="radio" name="q${i}" value="${val}" ${checked}> ${opt}</label>`;
+                });
+                html += `</div></div>`;
+            }
+            quizForm.innerHTML = html;
+            for (let i = 0; i < questions.length; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        userSelections[i] = e.target.value;
+                        if (submitted) {
+                            submitted = false;
+                            resultPanel.style.display = 'none';
+                            removeHighlights();
+                        }
+                    });
+                });
+            }
+        }
+
+        function removeHighlights() {
+            for (let i = 0; i < questions.length; i++) {
+                const card = document.getElementById(`qCard${i}`);
+                if (card) card.classList.remove('correct-highlight', 'wrong-highlight');
+            }
+        }
+
+        function applyHighlights() {
+            for (let i = 0; i < questions.length; i++) {
+                const card = document.getElementById(`qCard${i}`);
+                if (!card) continue;
+                const selected = userSelections[i];
+                const correct = correctAnswers[i];
+                card.classList.remove('correct-highlight', 'wrong-highlight');
+                if (selected) {
+                    if (selected === correct) card.classList.add('correct-highlight');
+                    else card.classList.add('wrong-highlight');
+                }
+            }
+        }
+
+        function computeScore() {
+            let correctCount = 0;
+            const mistakes = [];
+            for (let i = 0; i < questions.length; i++) {
+                const selected = userSelections[i];
+                if (selected && selected === correctAnswers[i]) correctCount++;
+                else mistakes.push(i+1);
+            }
+            return { correctCount, mistakes };
+        }
+
+        function showResult() {
+            const { correctCount, mistakes } = computeScore();
+            const totalScore = correctCount * 2;
+            let studentId = studentIdInput.value.trim();
+            if (studentId === '' || isNaN(parseInt(studentId)) || parseInt(studentId) < 1 || parseInt(studentId) > 50) studentId = '未填/无效';
+
+            scoreValue.innerText = totalScore;
+            let remark = '';
+            if (totalScore >= 90) remark = '优秀 🌟';
+            else if (totalScore >= 80) remark = '良好 👍';
+            else if (totalScore >= 60) remark = '及格 📚';
+            else remark = '需复习 🕒';
+            remarkText.innerText = remark;
+
+            if (mistakes.length > 0) {
+                mistakeContainer.style.display = 'block';
+                let html = '';
+                mistakes.forEach(qNo => { html += `<div class="mistake-item">❌ 第 ${qNo} 题</div>`; });
+                mistakeDetails.innerHTML = html;
+            } else {
+                mistakeContainer.style.display = 'none';
+            }
+            scoreMessage.innerText = `学号 ${studentId}  答对 ${correctCount} 题，总分 ${totalScore} 分。${mistakes.length ? '错题已用橙色高亮' : '太棒了，全对！'}`;
+            applyHighlights();
+            resultPanel.style.display = 'block';
+            submitted = true;
+        }
+
+        function resetExam() {
+            userSelections.fill(null);
+            for (let i = 0; i < questions.length; i++) {
+                const radios = document.getElementsByName(`q${i}`);
+                radios.forEach(r => r.checked = false);
+            }
+            resultPanel.style.display = 'none';
+            submitted = false;
+            removeHighlights();
+            studentIdInput.value = '';
+        }
+
+        renderAnswerKey();
+        renderQuestions();
+
+        document.getElementById('submitBtn').addEventListener('click', () => {
+            let sid = studentIdInput.value;
+            if (!sid || parseInt(sid) < 1 || parseInt(sid) > 50) alert('请填写正确的学号 (1-50)');
+            const missing = [];
+            for (let i = 0; i < questions.length; i++) if (!userSelections[i]) missing.push(i+1);
+            if (missing.length && !confirm(`第 ${missing.join(', ')} 题未选，未选视为错误。确定提交吗？`)) return;
+            showResult();
+        });
+        document.getElementById('resetBtn').addEventListener('click', resetExam);
+        resultPanel.style.display = 'none';
+    })();
+</script>
+</body>
+</html>
